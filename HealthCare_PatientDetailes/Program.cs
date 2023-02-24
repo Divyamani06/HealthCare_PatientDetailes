@@ -1,12 +1,6 @@
-using HealthCare_PatientDetailes.Authentication;
-using HealthCare_PatientDetailes.Context;
 using HealthCare_PatientDetailes.PatientSerialization;
 using HealthCare_PatientDetailes.Services;
 using HealthCare_PatientDetailes.Services.IServices;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,11 +17,6 @@ builder.Services.AddScoped<ISerialzation, Serialization>();
 
 //var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 //builder.Services.AddDbContext<PatientDbContext>(options => options.UseSqlServer(connectionString));
-
-
-
-
-
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

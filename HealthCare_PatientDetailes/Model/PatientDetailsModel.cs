@@ -2,10 +2,7 @@
 
 namespace HealthCare_PatientDetailes.Model
 {
-    public class Model
-    {
-        public List<PatientDetailsModel> Models { get; set; }
-    }
+    
     public class PatientDetailsModel
     {
         [Key]
