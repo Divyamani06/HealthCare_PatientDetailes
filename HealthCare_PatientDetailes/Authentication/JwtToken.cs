@@ -1,6 +1,6 @@
 ﻿namespace HealthCare_PatientDetailes.Authentication
 {
-    public class Login
+    public class JwtToken
     {
         public string Token { get; set; }
     }

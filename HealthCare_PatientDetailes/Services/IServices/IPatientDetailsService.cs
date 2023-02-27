@@ -5,6 +5,8 @@ namespace HealthCare_PatientDetailes.Services.IServices
     public interface IPatientDetailsService
     {
         
-        List<PatientDetailsModel> GetPatientDetails();
+        List<PatientDetailsModel> GetPatientDetails(); 
+        PatientDetailsModel GetPatientDetailsById(Guid id);
+        string LoginPatientDEtails(LoginModel loginModel);
     }
 }
