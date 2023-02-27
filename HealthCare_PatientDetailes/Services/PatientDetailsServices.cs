@@ -53,7 +53,7 @@ namespace HealthCare_PatientDetailes.Services
         /// </summary>
         /// <param name="loginModel"></param>
         /// <returns></returns>
-        public string LoginPatientDEtails(LoginModel loginModel)
+        public string LoginPatientDetails(LoginModel loginModel)
         {
 
             string user = null;

@@ -22,10 +22,11 @@ namespace HealthCare_PatientDetailes.Controllers
         /// </summary>
         /// <param name="loginModel"></param>
         /// <returns></returns>
-        [HttpPost("LoginUser")]
+        [HttpPost]
+        [Route("LoginUser")]
         public  IActionResult  LoginUser(LoginModel loginModel)
         {
-            var post= _details.LoginPatientDEtails(loginModel);
+            var post= _details.LoginPatientDetails(loginModel);
 
             if(post != null) 
             {
