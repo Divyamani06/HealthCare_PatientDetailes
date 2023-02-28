@@ -5,7 +5,6 @@ namespace HealthCare_PatientDetailes.Model
     
     public class PatientDetailsModel
     {
-        [Key]
         public Guid patientId { get; set; }
         public string firstName { get; set;}
         public string lastName { get; set;}
