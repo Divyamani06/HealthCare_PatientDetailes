@@ -1,7 +1,5 @@
 ﻿using HealthCare_PatientDetailes.Model;
 using HealthCare_PatientDetailes.Services.IServices;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HealthCare_PatientDetailes.Controllers
@@ -24,6 +22,8 @@ namespace HealthCare_PatientDetailes.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("LoginUser")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public  IActionResult  LoginUser(LoginModel loginModel)
         {
             var post= _details.LoginPatientDetails(loginModel);
@@ -32,10 +32,9 @@ namespace HealthCare_PatientDetailes.Controllers
             {
                 return Ok(post);
             }
-            else
-            {
-                return Unauthorized();
-            }
+            
+            return Unauthorized();
+            
             
 
         }

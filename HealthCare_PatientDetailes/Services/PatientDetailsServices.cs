@@ -1,9 +1,7 @@
 ﻿using HealthCare_PatientDetailes.Authentication;
-using HealthCare_PatientDetailes.Context;
 using HealthCare_PatientDetailes.Model;
 using HealthCare_PatientDetailes.PatientSerialization;
 using HealthCare_PatientDetailes.Services.IServices;
-using Microsoft.EntityFrameworkCore.Migrations.Internal;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -43,7 +41,6 @@ namespace HealthCare_PatientDetailes.Services
         {
             var getdetailsbyId = _serialze.DeSerialzePatient();
             var details = getdetailsbyId.FirstOrDefault(x => x.patientId == id);
-
             return details;
 
         }
@@ -56,14 +53,12 @@ namespace HealthCare_PatientDetailes.Services
         public string LoginPatientDetails(LoginModel loginModel)
         {
 
-            string user = null;
-            if (loginModel.Email=="testmail@gmail.com" && loginModel.Password == "testpassword")
+            if (loginModel.Email == "testmail@gmail.com" && loginModel.Password == "testpassword")
             {
                 var token = GenerateToken(loginModel);
                 return token;
             }
-
-            return user;
+            return null;
         }
         
         private string GenerateToken(LoginModel loginModel) 
@@ -79,7 +74,6 @@ namespace HealthCare_PatientDetailes.Services
                     
             });
 
-
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = claims,
@@ -93,7 +87,6 @@ namespace HealthCare_PatientDetailes.Services
             var fianleToken = tokenHandler.WriteToken(tokens);
             return fianleToken;
         }
-     
-        
+             
     }
 }

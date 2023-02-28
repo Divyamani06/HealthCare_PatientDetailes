@@ -1,11 +1,12 @@
+using AutoMapper;
 using HealthCare_PatientDetailes.Authentication;
 using HealthCare_PatientDetailes.PatientSerialization;
 using HealthCare_PatientDetailes.Services;
 using HealthCare_PatientDetailes.Services.IServices;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Reflection;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,11 +15,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-
-
 builder.Services.AddScoped<IPatientDetailsService, PatientDetailsServices>();
 builder.Services.AddScoped<ISerialzation, Serialization>();
-
 
 ///Token Generations
 var tokenKey = builder.Configuration.GetSection("JwtToken");
@@ -32,7 +30,7 @@ builder.Services.AddAuthentication(x => {
 
 }).AddJwtBearer(x =>
 {
-    x.RequireHttpsMetadata = false;
+    x.RequireHttpsMetadata = true;
     x.SaveToken = true;
     x.TokenValidationParameters = new TokenValidationParameters()
     {
@@ -40,8 +38,6 @@ builder.Services.AddAuthentication(x => {
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(authKey)),
         ValidateIssuer = false,
         ValidateAudience = false,
-        
-
     };
 });
 
@@ -52,7 +48,6 @@ builder.Services.AddSwaggerGen(c =>
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Scheme = "Bearer",
-        BearerFormat = "JWT",
         In = ParameterLocation.Header,
         Name = "Authorization",
         Description = "Bearer Authentication with JWT Token",

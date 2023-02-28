@@ -25,6 +25,8 @@ namespace HealthCare_PatientDetailes.Controllers
         [Authorize]
         [HttpGet]
         [Route("GetAllPatientDetails")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public IActionResult GetAllPatient()
         {
 
@@ -40,6 +42,8 @@ namespace HealthCare_PatientDetailes.Controllers
         [Authorize]
         [HttpGet]
         [Route("GetPatientDetailsById")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public IActionResult GetPatientDetailsById(Guid id)
         {
             var details = _patientdetail.GetPatientDetailsById(id);
