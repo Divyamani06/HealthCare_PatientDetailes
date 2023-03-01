@@ -1,13 +1,11 @@
-﻿using HealthCare_PatientDetailes.Model;
-using HealthCare_PatientDetailes.Services.IServices;
+﻿using HealthCare_PatientDetailes.Services.IServices;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
 namespace HealthCare_PatientDetailes.Controllers
 {
-   // [Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class PatientController : ControllerBase
