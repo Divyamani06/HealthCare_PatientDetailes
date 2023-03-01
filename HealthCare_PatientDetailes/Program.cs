@@ -14,12 +14,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddScoped<IPatientDetailsService, PatientDetailsServices>();
-builder.Services.AddScoped<ISerialzation, Serialization>();
+builder.Services.AddScoped<ISerialization, Serialization>();
+builder.Services.AddScoped<ILoginPatientDetailService, LoginPatientDetailService>();
 
 ///Token Generations
 var tokenKey = builder.Configuration.GetSection("JwtToken");
 builder.Services.Configure<JwtToken>(tokenKey);
-var authKey = builder.Configuration.GetValue<string>("JwtToken:Token");
+var authKey = builder.Configuration.GetValue<string>("JwtToken:Key");
 
 builder.Services.AddAuthentication(x => {
     x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

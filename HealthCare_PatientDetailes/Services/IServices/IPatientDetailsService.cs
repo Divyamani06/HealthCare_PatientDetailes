@@ -6,6 +6,5 @@ namespace HealthCare_PatientDetailes.Services.IServices
     {        
         List<PatientDetailsModel> GetPatientDetails();
         PatientDetailsModel? GetPatientDetailsById(Guid? id);
-        string LoginPatientDetails(LoginModel loginModel);
     }
 }
