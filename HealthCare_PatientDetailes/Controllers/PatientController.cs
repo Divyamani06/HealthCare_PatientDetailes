@@ -1,11 +1,11 @@
-﻿using HealthCare_PatientDetailes.Model;
-using HealthCare_PatientDetailes.Services.IServices;
+﻿using HealthCare_PatientDetailes.Services.IServices;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace HealthCare_PatientDetailes.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class PatientController : ControllerBase
@@ -21,15 +21,20 @@ namespace HealthCare_PatientDetailes.Controllers
         /// <summary>
         /// GetAllDetails
         /// </summary>
-        /// <returns></returns>
-        [Authorize]
+        /// <returns></returns>       
         [HttpGet]
-        [Route("GetAllPatientDetails")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetAllPatient()
         {
 
-            var details = _patientdetail.GetPatientDetails();
-            return Ok(details);
+            var getDetails = _patientdetail.GetPatientDetails();
+            if (getDetails.IsNullOrEmpty())
+            {
+                return NotFound();
+            }
+            return Ok(getDetails);
         }
 
         /// <summary>
@@ -37,13 +42,19 @@ namespace HealthCare_PatientDetailes.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [Authorize]
         [HttpGet]
-        [Route("GetPatientDetailsById")]
+        [Route("patientId")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetPatientDetailsById(Guid id)
         {
-            var details = _patientdetail.GetPatientDetailsById(id);
-            return Ok(details);
+            var getDetailsById = _patientdetail.GetPatientDetailsById(id);
+            if (getDetailsById != null)
+            {
+                return Ok(getDetailsById);
+            }
+            return NotFound();
         }
     }
 }

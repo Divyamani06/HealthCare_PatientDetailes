@@ -2,6 +2,7 @@
 {
     public class JwtToken
     {
-        public string Token { get; set; }
+
+        public string Key { get; set; } = string.Empty;
     }
 }

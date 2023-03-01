@@ -1,22 +1,29 @@
 ﻿using HealthCare_PatientDetailes.Model;
 using Newtonsoft.Json;
-using System.Collections;
 
 namespace HealthCare_PatientDetailes.PatientSerialization
 {
-    public class Serialization:ISerialzation
+    public class Serialization:ISerialization
     {
+        private readonly IConfiguration _configration;
 
-        public List<PatientDetailsModel> DeSerialzePatient()
+        public Serialization(IConfiguration configuration) 
         {
-            var json = File.ReadAllText(@"D:\C#-Codes\HealthCare_PatientDetailes\HealthCare_PatientDetailes\Json\PatientDataFile.json");
-           
-            var item = JsonConvert.DeserializeObject<List<PatientDetailsModel>>(json);
-           
+            _configration=configuration;
+        }
 
-            
-            return item;
+        public List<PatientDetailsModel> DeSerializePatient()
+        {
+            var json = _configration.GetValue<string>("JSON:jsonFile");
+            var jsonvalue = File.ReadAllText(json);
+            if (string.IsNullOrEmpty(jsonvalue))
+            {
+                return new List<PatientDetailsModel>();
+            }
+            var item=JsonConvert.DeserializeObject<List<PatientDetailsModel>>(jsonvalue);
+            return item ?? new List<PatientDetailsModel>();
 
+         
         }
        
     }
