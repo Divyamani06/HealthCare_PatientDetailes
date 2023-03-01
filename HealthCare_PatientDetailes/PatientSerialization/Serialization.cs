@@ -16,12 +16,14 @@ namespace HealthCare_PatientDetailes.PatientSerialization
         {
             var json = _configration.GetValue<string>("JSON:jsonFile");
             var jsonvalue = File.ReadAllText(json);
-            if (jsonvalue != null)
+            if (string.IsNullOrEmpty(jsonvalue))
             {
-                var item = JsonConvert.DeserializeObject<List<PatientDetailsModel>>(jsonvalue);
-                return item ?? new List<PatientDetailsModel>();
+                return new List<PatientDetailsModel>();
             }
-            return new List<PatientDetailsModel>();
+            var item=JsonConvert.DeserializeObject<List<PatientDetailsModel>>(jsonvalue);
+            return item ?? new List<PatientDetailsModel>();
+
+         
         }
        
     }

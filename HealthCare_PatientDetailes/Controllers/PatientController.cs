@@ -3,10 +3,11 @@ using HealthCare_PatientDetailes.Services.IServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace HealthCare_PatientDetailes.Controllers
 {
-    [Authorize]
+   // [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class PatientController : ControllerBase
@@ -26,10 +27,15 @@ namespace HealthCare_PatientDetailes.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetAllPatient()
         {
 
             var getDetails = _patientdetail.GetPatientDetails();
+            if (getDetails.IsNullOrEmpty())
+            {
+                return NotFound();
+            }
             return Ok(getDetails);
         }
 
