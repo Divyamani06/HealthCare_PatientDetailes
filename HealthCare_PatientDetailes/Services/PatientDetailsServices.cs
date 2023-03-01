@@ -10,14 +10,14 @@ using System.Text;
 
 namespace HealthCare_PatientDetailes.Services
 {
-    public class PatientDetailsServices :IPatientDetailsService
+    public class PatientDetailsServices : IPatientDetailsService
     {
         private readonly ISerialzation _serialze;
         private readonly JwtToken _jwtToken;
 
-        public PatientDetailsServices(ISerialzation serialzation, IOptions<JwtToken> options) 
+        public PatientDetailsServices(ISerialzation serialzation, IOptions<JwtToken> options)
         {
-            _serialze=serialzation;
+            _serialze = serialzation;
             _jwtToken = options.Value;
         }
 
@@ -37,7 +37,7 @@ namespace HealthCare_PatientDetailes.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public  PatientDetailsModel  GetPatientDetailsById(Guid id)
+        public PatientDetailsModel? GetPatientDetailsById(Guid? id)
         {
             var getdetailsbyId = _serialze.DeSerialzePatient();
             var details = getdetailsbyId.FirstOrDefault(x => x.patientId == id);
@@ -52,26 +52,25 @@ namespace HealthCare_PatientDetailes.Services
         /// <returns></returns>
         public string LoginPatientDetails(LoginModel loginModel)
         {
-
             if (loginModel.Email == "testmail@gmail.com" && loginModel.Password == "testpassword")
             {
                 var token = GenerateToken(loginModel);
                 return token;
             }
-            return null;
+            return string.Empty;
         }
-        
-        private string GenerateToken(LoginModel loginModel) 
+
+        private string GenerateToken(LoginModel loginModel)
         {
-            
             var tokenHandler = new JwtSecurityTokenHandler();
+
             var tokenKey = Encoding.ASCII.GetBytes(_jwtToken.Token);
 
             var claims = new ClaimsIdentity(new Claim[]
             {
-                    new Claim("Email",loginModel.Email),
-                    new Claim(ClaimTypes.Name,loginModel.Password),
-                    
+                    new Claim("Email",loginModel.Email)
+
+
             });
 
             var tokenDescriptor = new SecurityTokenDescriptor
@@ -87,6 +86,6 @@ namespace HealthCare_PatientDetailes.Services
             var fianleToken = tokenHandler.WriteToken(tokens);
             return fianleToken;
         }
-             
+
     }
 }

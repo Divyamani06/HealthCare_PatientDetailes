@@ -1,4 +1,3 @@
-using AutoMapper;
 using HealthCare_PatientDetailes.Authentication;
 using HealthCare_PatientDetailes.PatientSerialization;
 using HealthCare_PatientDetailes.Services;
@@ -6,7 +5,6 @@ using HealthCare_PatientDetailes.Services.IServices;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System.Reflection;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);

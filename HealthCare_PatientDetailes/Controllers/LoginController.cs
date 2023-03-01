@@ -27,12 +27,10 @@ namespace HealthCare_PatientDetailes.Controllers
         public  IActionResult  LoginUser(LoginModel loginModel)
         {
             var post= _details.LoginPatientDetails(loginModel);
-
-            if(post != null) 
+            if(!string.IsNullOrWhiteSpace(post))
             {
                 return Ok(post);
             }
-            
             return Unauthorized();
             
             
