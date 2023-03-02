@@ -2,10 +2,10 @@
 
 namespace HealthCare_PatientDetailes.PatientSerialization
 {
-    public interface ISerialization
+    public interface ISerialization<T> where T : class
     {
        
-        List<PatientDetailsModel> DeSerializePatient();
+        List<T> DeSerializePatient();
         
     }
 }

@@ -5,6 +5,7 @@ using HealthCare_PatientDetailes.Services.IServices;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Serilog;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,7 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddScoped<IPatientDetailsService, PatientDetailsServices>();
-builder.Services.AddScoped<ISerialization, Serialization>();
+builder.Services.AddScoped(typeof(ISerialization<>), typeof(Serialization<>));
 builder.Services.AddScoped<ILoginPatientDetailService, LoginPatientDetailService>();
 
 ///Token Generations
@@ -67,8 +68,14 @@ builder.Services.AddSwaggerGen(c =>
                     }
                 });
 });
-
-
+builder.Host.UseSerilog ((context, config) =>
+{
+    config.WriteTo.File("Logs/log.txt", rollingInterval: RollingInterval.Day);
+    if (context.HostingEnvironment.IsProduction() == false)
+    {
+        config.WriteTo.Console();
+    }
+});
 
 var app = builder.Build();
 

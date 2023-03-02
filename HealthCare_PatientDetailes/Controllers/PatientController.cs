@@ -11,11 +11,13 @@ namespace HealthCare_PatientDetailes.Controllers
     public class PatientController : ControllerBase
     {
         private readonly IPatientDetailsService _patientdetail;
+        private readonly ILogger<PatientController> _logger;
 
-        public PatientController(IPatientDetailsService patientDetaile)
+        public PatientController(IPatientDetailsService patientDetaile,ILogger<PatientController> logger)
         {
 
             _patientdetail= patientDetaile;
+            _logger= logger;
         }
 
         /// <summary>
@@ -28,7 +30,6 @@ namespace HealthCare_PatientDetailes.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetAllPatient()
         {
-
             var getDetails = _patientdetail.GetPatientDetails();
             if (getDetails.IsNullOrEmpty())
             {
@@ -54,6 +55,7 @@ namespace HealthCare_PatientDetailes.Controllers
             {
                 return Ok(getDetailsById);
             }
+           _logger.LogError($"Error  try to get record id:{id}");
             return NotFound();
         }
     }

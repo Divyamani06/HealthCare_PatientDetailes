@@ -6,9 +6,9 @@ namespace HealthCare_PatientDetailes.Services
 {
     public class PatientDetailsServices : IPatientDetailsService
     {
-        private readonly ISerialization _serialze;
+        private readonly ISerialization<PatientDetailsModel> _serialze;
 
-        public PatientDetailsServices(ISerialization serialzation)
+        public PatientDetailsServices(ISerialization<PatientDetailsModel> serialzation)
         {
             _serialze = serialzation;
            
